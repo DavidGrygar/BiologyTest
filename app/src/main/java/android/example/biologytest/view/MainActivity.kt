@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.fragmentFactory = fragmentFactory
-        /*supportFragmentManager.beginTransaction()
-            .replace(R.id.main_activity_fragment_container, OpeningFragment::class.java, null)
-            .commit()*/
 
         Timber.d("MainActivity onCreate")
     }

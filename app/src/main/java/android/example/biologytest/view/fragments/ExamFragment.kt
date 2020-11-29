@@ -1,7 +1,7 @@
 package android.example.biologytest.view.fragments
 
 import android.example.biologytest.R
-import android.example.biologytest.adapters.QuestionListAdapter2
+import android.example.biologytest.adapters.QuestionListAdapter
 import android.example.biologytest.databinding.FragmentExamBinding
 import android.example.biologytest.ui.VerticalSpaceItemDecoration
 import android.example.biologytest.viewmodels.ExamFragmentViewModel
@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_exam.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -37,19 +36,13 @@ constructor() : Fragment(R.layout.fragment_exam) {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = QuestionListAdapter2(viewModel)
+        val adapter = QuestionListAdapter(viewModel)
         binding.examList.adapter = adapter
         binding.examList.layoutManager = LinearLayoutManager(context)
 
         val itemDecoration = VerticalSpaceItemDecoration()
 
         binding.examList.addItemDecoration(itemDecoration)
-
-        /*this.viewModel.questions.observe(viewLifecycleOwner, Observer {
-            it.let {
-                adapter.submitList(it)
-            }
-        })*/
 
         this.viewModel.questionRows.observe(viewLifecycleOwner, Observer {
             it.let {

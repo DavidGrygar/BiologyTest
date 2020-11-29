@@ -20,14 +20,6 @@ constructor(
 
     val exam = examRepository.getLatestExam()
 
-    /*val questions = exam.switchMap {
-        questionRepository.getQuestionsForExam(it.ID)
-    }
-
-    val questionsCount = questions.switchMap {
-        liveData<Int> { it.size }
-    }*/
-
     val questionsCount = exam.switchMap {
         questionRepository.getCountQuestion(it.ID)
     }
@@ -39,23 +31,4 @@ constructor(
     val answeredCorrectly = exam.switchMap {
         questionRepository.getCountCorrect(it.ID)
     }
-
-
-
-    /*val questionsCount = Transformations.switchMap(exam) {
-        questionRepository.getQuestionCountForExam(it.ID)
-    }
-
-    val answered = Transformations.switchMap(exam) {
-        answerRepository.getAnsweredCountForExam(it.ID)
-    }
-
-    val answeredCorrectly = Transformations.switchMap(exam) {
-        answerRepository.getCorrectFilledAnswersForExam(it.ID)
-    }*/
-
-    /*private val _answeredCorrectly = MutableLiveData<Int?>(17)
-    val answeredCorrectly: LiveData<Int?>
-        get() = _answeredCorrectly*/
-
 }

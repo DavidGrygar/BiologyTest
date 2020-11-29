@@ -27,18 +27,13 @@ constructor(
 ) : ViewModel() {
 
     val questionRows = MutableLiveData<List<QuestionRow>>()
-
-    /*val singleAnswersMap = mutableMapOf<Long,AnswerEntity>()
-
-    val multipleAnswersMap = mutableMapOf<String,AnswerEntity>()*/
-
     val answersMap = mutableMapOf<Long, MutableSet<String>>()
 
     init {
         setQuetionRows()
     }
 
-    fun putAnswer(questionEntity: QuestionEntity, text: String) {
+    fun putOrEditAnswer(questionEntity: QuestionEntity, text: String) {
         when (questionEntity.QUESTION_TYPE) {
             QuestionTypeEnum.MULTIPLE_CORRECT -> {
                 answersMap.getOrPut(questionEntity.ID) { mutableSetOf(text) }.add(text)
@@ -59,16 +54,6 @@ constructor(
             }
         }
     }
-
-    /*fun putSingleAnswer(questionEntity: QuestionEntity, text: String)
-    {
-        singleAnswersMap.put(questionEntity.ID, AnswerEntity(QUESTION_ID = questionEntity.ID, TEXT = text))
-    }
-
-    fun putOrRemoveMultipleAnswer(answerEntity: AnswerEntity, text: String)
-    {
-        multipleAnswersMap
-    }*/
 
     fun setQuetionRows() {
         viewModelScope.launch {
@@ -108,15 +93,10 @@ constructor(
             val allAnswers = mutableListOf<AnswerEntity>()
 
             questionRows.value?.forEach {
-                /*var answer = singleAnswersMap.get(it.questionEntity.ID)
-                if(answer == null)
-                {
-                    answer = AnswerEntity(QUESTION_ID = it.questionEntity.ID)
-                }*/
 
                 val questionEntity = it.questionEntity
 
-                var answerListForQuestion = answersMap.get(questionEntity.ID)
+                val answerListForQuestion = answersMap.get(questionEntity.ID)
 
                 if (answerListForQuestion.isNullOrEmpty()) {
                     allAnswers.add(AnswerEntity(QUESTION_ID = questionEntity.ID, EXAM_ID = examID))
@@ -130,7 +110,6 @@ constructor(
             }
 
             answerRepository.insertAll(allAnswers)
-
             _navigateToExamResultFragment.value = true
         }
     }

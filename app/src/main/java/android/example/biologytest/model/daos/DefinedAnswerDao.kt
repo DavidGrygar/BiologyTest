@@ -20,7 +20,4 @@ interface DefinedAnswerDao {
 
     @Query("SELECT * FROM DEFINED_ANSWER WHERE QUESTION_ID = :QUESTION_ID")
     suspend fun getRawList(QUESTION_ID: Long): List<DefinedAnswerEntity>
-
-    /*@Query("SELECT * FROM ANSWER WHERE QUESTION_ID = :QUESTION_ID AND CORRECT = CORRECT")
-    suspend fun getList(QUESTION_ID: Long, CORRECT: Boolean): List<AnswerEntity>*/
 }
