@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.fragments.ExamResultFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="android.example.biologytest.viewmodels.ExamResultFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/questions_count_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/questions_count"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/questions_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.questionsCount.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/questions_count_label"
+            app:layout_constraintStart_toEndOf="@+id/questions_count_label"
+            app:layout_constraintTop_toTopOf="@+id/questions_count_label"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/answered_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/answered"
+            app:layout_constraintStart_toStartOf="@+id/questions_count_label"
+            app:layout_constraintTop_toBottomOf="@+id/questions_count_label" />
+
+        <TextView
+            android:id="@+id/answered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.answered.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/answered_label"
+            app:layout_constraintStart_toEndOf="@+id/answered_label"
+            app:layout_constraintTop_toTopOf="@+id/answered_label"
+            tools:text="9" />
+
+        <TextView
+            android:id="@+id/answered_correctly_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/answered_correctly"
+            app:layout_constraintStart_toStartOf="@+id/questions_count_label"
+            app:layout_constraintTop_toBottomOf="@+id/answered_label" />
+
+        <TextView
+            android:id="@+id/answered_correctly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.answeredCorrectly.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/answered_correctly_label"
+            app:layout_constraintStart_toEndOf="@+id/answered_correctly_label"
+            app:layout_constraintTop_toTopOf="@+id/answered_correctly_label"
+            tools:text="7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

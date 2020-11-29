@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/openingFragment">
+
+    <fragment
+        android:id="@+id/openingFragment"
+        android:name="android.example.biologytest.view.fragments.OpeningFragment"
+        android:label="OpeningFragment">
+        <action
+            android:id="@+id/action_openingFragment_to_examFragment"
+            app:destination="@id/examFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/examFragment"
+        android:name="android.example.biologytest.view.fragments.ExamFragment"
+        android:label="ExamFragment" >
+        <action
+            android:id="@+id/action_examFragment_to_examResultFragment"
+            app:destination="@id/examResultFragment"
+            app:popUpTo="@id/examFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/examResultFragment"
+        android:name="android.example.biologytest.view.fragments.ExamResultFragment"
+        android:label="fragment_exam_result"
+        tools:layout="@layout/fragment_exam_result" />
+</navigation>

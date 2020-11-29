@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BiologyTest</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_exam">Start exam</string>
+    <string name="finish_exam">Finish exam</string>
+    <string name="questions_count">Questions count</string>
+    <string name="answered_correctly">Answered correctly</string>
+    <string name="answered">Answered</string>
+</resources>
