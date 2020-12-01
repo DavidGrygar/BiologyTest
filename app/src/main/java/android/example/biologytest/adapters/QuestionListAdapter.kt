@@ -1,13 +1,11 @@
 package android.example.biologytest.adapters
 
+import android.example.biologytest.factories.AnswerHandler
 import android.example.biologytest.model.QuestionRow
-import android.example.biologytest.databinding.QuestionRowMultipleCorectAnswerBinding
-import android.example.biologytest.databinding.QuestionRowNumberBinding
-import android.example.biologytest.databinding.QuestionRowSingleCorrectAnswerBinding
-import android.example.biologytest.enums.QuestionTypeEnum
+import android.example.biologytest.factories.QuestionListItemViewHolder
+import android.example.biologytest.factories.QuestionListItemViewHolderFactory
+import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.ui.hideKeyboard
-import android.example.biologytest.viewmodels.ExamFragmentViewModel
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -17,11 +15,10 @@ import android.widget.RadioButton
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val examFragmentViewModel: ExamFragmentViewModel) :
+class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val answerHandler: AnswerHandler) :
     ListAdapter<QuestionRow, QuestionListItemViewHolder>(
         QuestionRowDiffCallback()
     ) {
@@ -31,136 +28,17 @@ class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val examFragmen
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListItemViewHolder {
-        return QuestionListItemViewHolder.from(parent, viewType)
+        return QuestionListItemViewHolderFactory.createQuestionListItemViewHolder(
+            parent,
+            viewType,
+            answerHandler
+        )
     }
 
     @ExperimentalCoroutinesApi
     override fun onBindViewHolder(holder: QuestionListItemViewHolder, position: Int) {
         val item = getItem(position)
-        when (holder) {
-            is QuestionListItemViewHolder.SpecificNumberViewHolder -> {
-                holder.binding.question = item.questionEntity
-                holder.binding.questionRowNumberAnswer.setOnEditorActionListener { v, actionId, event ->
-                    return@setOnEditorActionListener when (actionId) {
-                        EditorInfo.IME_ACTION_SEND -> {
-                            v.clearFocus()
-                            v.hideKeyboard()
-                            true
-                        }
-                        else -> false
-                    }
-                }
-
-                holder.binding.questionRowNumberAnswer.doAfterTextChanged {
-                    examFragmentViewModel.putOrEditAnswer(item.questionEntity, it.toString())
-                }
-            }
-            is QuestionListItemViewHolder.SingleCorrectViewHolder -> {
-                holder.binding.question = item.questionEntity
-                item.definedAnswersList.forEach {
-                    val radioButton = RadioButton(holder.binding.root.context)
-                    radioButton.layoutParams = LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    radioButton.setText(it.TEXT)
-                    radioButton.id = it.ID.toInt()
-
-                    val definedAnswerEntity = it
-
-                    radioButton.setOnClickListener(View.OnClickListener {
-                        examFragmentViewModel.putOrEditAnswer(
-                            item.questionEntity,
-                            definedAnswerEntity.TEXT
-                        )
-                    })
-
-                    holder.binding.questionRowSingleCorrectAnswerRadioGroup.addView(radioButton)
-                }
-
-            }
-            is QuestionListItemViewHolder.MultipleCorrectViewHolder -> {
-                holder.binding.question = item.questionEntity
-                item.definedAnswersList.forEach {
-                    val checkBox = CheckBox(holder.binding.root.context)
-                    checkBox.layoutParams = LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-
-                    checkBox.setText(it.TEXT)
-                    checkBox.id = it.ID.toInt()
-
-                    val definedAnswerEntity = it
-
-                    checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
-                        if (isChecked) {
-                            examFragmentViewModel.putOrEditAnswer(
-                                item.questionEntity,
-                                definedAnswerEntity.TEXT
-                            )
-                        }
-                        else
-                        {
-                            examFragmentViewModel.removeAnswer(
-                                item.questionEntity,
-                                definedAnswerEntity.TEXT
-                            )
-                        }
-                    }
-
-                    holder.binding.questionRowMultipleCorrectAnswerGroup.addView(checkBox)
-                }
-            }
-        }
-    }
-}
-
-sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    class SpecificNumberViewHolder(val binding: QuestionRowNumberBinding) :
-        QuestionListItemViewHolder(
-            binding.root
-        )
-
-    class SingleCorrectViewHolder(val binding: QuestionRowSingleCorrectAnswerBinding) :
-        QuestionListItemViewHolder(
-            binding.root
-        )
-
-    class MultipleCorrectViewHolder(val binding: QuestionRowMultipleCorectAnswerBinding) :
-        QuestionListItemViewHolder(
-            binding.root
-        )
-
-    companion object {
-        fun from(parent: ViewGroup, viewType: Int): QuestionListItemViewHolder {
-            val layoutInflater = LayoutInflater.from(parent.context)
-            return when (viewType) {
-                QuestionTypeEnum.SPECIFIC_NUMBER.ordinal -> SpecificNumberViewHolder(
-                    QuestionRowNumberBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                )
-                QuestionTypeEnum.SINGLE_CORRECT.ordinal -> SingleCorrectViewHolder(
-                    QuestionRowSingleCorrectAnswerBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                )
-                QuestionTypeEnum.MULTIPLE_CORRECT.ordinal -> MultipleCorrectViewHolder(
-                    QuestionRowMultipleCorectAnswerBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                )
-                else -> throw IllegalStateException()
-            }
-        }
+        holder.bind(item)
     }
 }
 

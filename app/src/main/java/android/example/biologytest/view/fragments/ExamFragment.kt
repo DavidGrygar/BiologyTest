@@ -3,6 +3,8 @@ package android.example.biologytest.view.fragments
 import android.example.biologytest.R
 import android.example.biologytest.adapters.QuestionListAdapter
 import android.example.biologytest.databinding.FragmentExamBinding
+import android.example.biologytest.factories.AnswerHandler
+import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.ui.VerticalSpaceItemDecoration
 import android.example.biologytest.viewmodels.ExamFragmentViewModel
 import android.os.Bundle
@@ -21,7 +23,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ExamFragment
-constructor() : Fragment(R.layout.fragment_exam) {
+constructor() : Fragment(R.layout.fragment_exam), AnswerHandler {
 
     private val navController by lazy { findNavController() }
     private val viewModel: ExamFragmentViewModel by viewModels()
@@ -36,7 +38,7 @@ constructor() : Fragment(R.layout.fragment_exam) {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = QuestionListAdapter(viewModel)
+        val adapter = QuestionListAdapter(this)
         binding.examList.adapter = adapter
         binding.examList.layoutManager = LinearLayoutManager(context)
 
@@ -56,6 +58,14 @@ constructor() : Fragment(R.layout.fragment_exam) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeObservers()
+    }
+
+    override fun putOrEditAnswer(questionEntity: QuestionEntity, text: String) {
+        viewModel.putOrEditAnswer(questionEntity, text)
+    }
+
+    override fun removeAnswer(questionEntity: QuestionEntity, text: String) {
+        viewModel.removeAnswer(questionEntity, text)
     }
 
     private fun subscribeObservers() {
