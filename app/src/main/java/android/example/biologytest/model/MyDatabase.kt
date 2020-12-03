@@ -12,11 +12,12 @@ import android.example.biologytest.util.MyConverters
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [QuestionEntity::class, DefinedAnswerEntity::class, ExamEntity::class, AnswerEntity::class],
-    version = 10,
-    exportSchema = false
+    version = 12
 )
 @TypeConverters(MyConverters::class)
 abstract class MyDatabase : RoomDatabase() {

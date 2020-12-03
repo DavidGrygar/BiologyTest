@@ -14,6 +14,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import java.util.*
 
 @ExperimentalCoroutinesApi
 class ExamFragmentViewModel
@@ -88,7 +89,7 @@ constructor(
 
     fun finishExam() {
         viewModelScope.launch {
-            val examEntity = ExamEntity(0, true)
+            val examEntity = ExamEntity(0, true, Date())
             val examID = examRepository.insert(examEntity)
             val allAnswers = mutableListOf<AnswerEntity>()
 

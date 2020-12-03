@@ -10,6 +10,8 @@ import android.example.biologytest.model.daos.QuestionDao
 import android.example.biologytest.model.entities.DefinedAnswerEntity
 import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.enums.QuestionTypeEnum
+import android.example.biologytest.model.MIGRATION_10_11
+import android.example.biologytest.model.MIGRATION_11_12
 import android.example.biologytest.repository.*
 import androidx.fragment.app.FragmentFactory
 import androidx.room.Room
@@ -47,9 +49,9 @@ object MyModule {
                 MyDatabase::class.java,
                 MyDatabase.DATABASE_NAME
             )
-            .fallbackToDestructiveMigration()
+            .addMigrations(MIGRATION_10_11, MIGRATION_11_12)
             //.createFromAsset("database.db")
-            .addCallback(object : RoomDatabase.Callback(){
+            /*.addCallback(object : RoomDatabase.Callback(){
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     GlobalScope.launch {
@@ -68,7 +70,7 @@ object MyModule {
                         database.definedAnswerDao().insert(DefinedAnswerEntity(0, "sítkovicemi proud asimilátů z listů do rostoucích orgánů", 4, false))
                     }
                 }
-            })
+            })*/
             .build()
         return database
     }
