@@ -99,12 +99,12 @@ sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolde
 
                 val definedAnswerEntity = it
 
-                radioButton.setOnClickListener(View.OnClickListener {
+                radioButton.setOnClickListener {
                     answerHandler.putOrEditAnswer(
                         item.questionEntity,
                         definedAnswerEntity.TEXT
                     )
-                })
+                }
 
                 binding.questionRowSingleCorrectAnswerRadioGroup.addView(radioButton)
             }
@@ -131,7 +131,7 @@ sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolde
 
                 val definedAnswerEntity = it
 
-                checkBox.setOnCheckedChangeListener { compoundButton, isChecked ->
+                checkBox.setOnCheckedChangeListener { _, isChecked ->
                     if (isChecked) {
                         answerHandler.putOrEditAnswer(
                             item.questionEntity,
