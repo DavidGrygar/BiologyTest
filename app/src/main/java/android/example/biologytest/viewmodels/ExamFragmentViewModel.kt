@@ -90,7 +90,7 @@ constructor(
     fun finishExam() {
         viewModelScope.launch {
             val examEntity = ExamEntity(0, true, Date())
-            val examID = examRepository.insert(examEntity)
+            val examID = examRepository.insertSingleWithLongReturn(examEntity)
             val allAnswers = mutableListOf<AnswerEntity>()
 
             questionRows.value?.forEach {
@@ -110,7 +110,7 @@ constructor(
                 }
             }
 
-            answerRepository.insertAll(allAnswers)
+            answerRepository.insertList(allAnswers)
             _navigateToExamResultFragment.value = true
         }
     }

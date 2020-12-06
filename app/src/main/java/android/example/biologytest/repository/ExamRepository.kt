@@ -7,8 +7,8 @@ import javax.inject.Inject
 class ExamRepository @Inject constructor(
     private val examDao: ExamDao
 ) {
-    suspend fun insert(examEntity: ExamEntity): Long =
-        examDao.insert(examEntity)
+    suspend fun insertSingleWithLongReturn(examEntity: ExamEntity): Long =
+        examDao.insertSingleWithLongReturn(examEntity)
 
     fun getLatestExam() =
         examDao.getLatest()

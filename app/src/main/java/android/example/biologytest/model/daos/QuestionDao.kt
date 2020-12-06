@@ -1,5 +1,6 @@
 package android.example.biologytest.model.daos
 
+import android.example.biologytest.model.entities.ExamEntity
 import android.example.biologytest.model.entities.QuestionEntity
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -8,10 +9,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface QuestionDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(questionEntity: QuestionEntity)
-
+interface QuestionDao: BaseDao<QuestionEntity> {
     @Query("SELECT * FROM QUESTION WHERE ID = :ID")
     fun getSingle(ID: Long): LiveData<QuestionEntity>
 

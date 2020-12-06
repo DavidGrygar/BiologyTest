@@ -10,8 +10,8 @@ class AnswerRepository @Inject constructor(
     suspend fun insert(answerEntity: AnswerEntity) =
         answerDao.insert(answerEntity)
 
-    suspend fun insertAll(answers: List<AnswerEntity>) =
-        answerDao.insertAll(answers)
+    suspend fun insertList(answers: List<AnswerEntity>) =
+        answerDao.insertList(answers)
 
     fun getRawList(EXAM_ID: Long, QUESTION_ID: Long) =
         answerDao.getRawList(EXAM_ID, QUESTION_ID)

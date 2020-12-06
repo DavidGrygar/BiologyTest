@@ -8,10 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface DefinedAnswerDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(definedAnswerEntity: DefinedAnswerEntity)
-
+interface DefinedAnswerDao: BaseDao<DefinedAnswerEntity> {
     @Query("SELECT * FROM DEFINED_ANSWER WHERE ID = :ID LIMIT 1")
     fun getSingle(ID: Long): LiveData<DefinedAnswerEntity>
 
