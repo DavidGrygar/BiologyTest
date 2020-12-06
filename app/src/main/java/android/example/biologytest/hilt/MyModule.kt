@@ -49,8 +49,8 @@ object MyModule {
                 MyDatabase::class.java,
                 MyDatabase.DATABASE_NAME
             )
-            .addMigrations(MIGRATION_10_11, MIGRATION_11_12)
-            //.createFromAsset("database.db")
+            //.addMigrations(MIGRATION_10_11, MIGRATION_11_12)
+            .createFromAsset("database.db")
             /*.addCallback(object : RoomDatabase.Callback(){
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
