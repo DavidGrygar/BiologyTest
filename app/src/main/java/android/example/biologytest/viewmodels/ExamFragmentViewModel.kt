@@ -59,8 +59,7 @@ constructor(
     fun setQuetionRows() {
         viewModelScope.launch {
             val questionRowsList = mutableListOf<QuestionRow>()
-            val questions = questionRepository.getAllQuestionsRaw()
-            questions.forEach {
+            questionRepository.getAllQuestionsRaw().map {
                 when (it.QuestionType) {
                     QuestionTypeEnum.SPECIFIC_NUMBER -> {
                         questionRowsList.add(QuestionRow(it, emptyList()))
