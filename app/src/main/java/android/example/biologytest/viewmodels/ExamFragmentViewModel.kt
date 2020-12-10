@@ -35,20 +35,20 @@ constructor(
     }
 
     fun putOrEditAnswer(questionEntity: QuestionEntity, text: String) {
-        when (questionEntity.QUESTION_TYPE) {
+        when (questionEntity.QuestionType) {
             QuestionTypeEnum.MULTIPLE_CORRECT -> {
-                answersMap.getOrPut(questionEntity.ID) { mutableSetOf(text) }.add(text)
+                answersMap.getOrPut(questionEntity.Id) { mutableSetOf(text) }.add(text)
             }
             else -> {
-                answersMap.put(questionEntity.ID, mutableSetOf(text))
+                answersMap.put(questionEntity.Id, mutableSetOf(text))
             }
         }
     }
 
     fun removeAnswer(questionEntity: QuestionEntity, text: String) {
-        when (questionEntity.QUESTION_TYPE) {
+        when (questionEntity.QuestionType) {
             QuestionTypeEnum.MULTIPLE_CORRECT -> {
-                answersMap.get(questionEntity.ID)?.remove(text)
+                answersMap.get(questionEntity.Id)?.remove(text)
             }
             else -> {
                 throw IllegalStateException()
@@ -61,7 +61,7 @@ constructor(
             val questionRowsList = mutableListOf<QuestionRow>()
             val questions = questionRepository.getAllQuestionsRaw()
             questions.forEach {
-                when (it.QUESTION_TYPE) {
+                when (it.QuestionType) {
                     QuestionTypeEnum.SPECIFIC_NUMBER -> {
                         questionRowsList.add(QuestionRow(it, emptyList()))
                     }
@@ -69,7 +69,7 @@ constructor(
                         questionRowsList.add(
                             QuestionRow(
                                 it,
-                                definedAnswerRepository.getRawList(it.ID)
+                                definedAnswerRepository.getRawList(it.Id)
                             )
                         )
                     }
@@ -77,7 +77,7 @@ constructor(
                         questionRowsList.add(
                             QuestionRow(
                                 it,
-                                definedAnswerRepository.getRawList(it.ID)
+                                definedAnswerRepository.getRawList(it.Id)
                             )
                         )
                     }
@@ -97,15 +97,15 @@ constructor(
 
                 val questionEntity = it.questionEntity
 
-                val answerListForQuestion = answersMap.get(questionEntity.ID)
+                val answerListForQuestion = answersMap.get(questionEntity.Id)
 
                 if (answerListForQuestion.isNullOrEmpty()) {
-                    allAnswers.add(AnswerEntity(QUESTION_ID = questionEntity.ID, EXAM_ID = examID))
+                    allAnswers.add(AnswerEntity(QuestionId = questionEntity.Id, ExamId = examID))
                 }
                 else
                 {
                     answerListForQuestion.forEach{
-                        allAnswers.add(AnswerEntity(QUESTION_ID = questionEntity.ID, TEXT = it, EXAM_ID = examID))
+                        allAnswers.add(AnswerEntity(QuestionId = questionEntity.Id, Text = it, ExamId = examID))
                     }
                 }
             }

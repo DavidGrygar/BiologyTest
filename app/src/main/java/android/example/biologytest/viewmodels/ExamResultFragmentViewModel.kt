@@ -1,7 +1,5 @@
 package android.example.biologytest.viewmodels
 
-import android.example.biologytest.repository.AnswerRepository
-import android.example.biologytest.repository.DefinedAnswerRepository
 import android.example.biologytest.repository.ExamRepository
 import android.example.biologytest.repository.QuestionRepository
 import androidx.hilt.Assisted
@@ -21,14 +19,14 @@ constructor(
     val exam = examRepository.getLatestExam()
 
     val questionsCount = exam.switchMap {
-        questionRepository.getCountQuestion(it.ID)
+        questionRepository.getCountQuestion(it.Id)
     }
 
     val answered = exam.switchMap {
-        questionRepository.getCountAnsweredQuestion(it.ID)
+        questionRepository.getCountAnsweredQuestion(it.Id)
     }
 
     val answeredCorrectly = exam.switchMap {
-        questionRepository.getCountCorrect(it.ID)
+        questionRepository.getCountCorrect(it.Id)
     }
 }

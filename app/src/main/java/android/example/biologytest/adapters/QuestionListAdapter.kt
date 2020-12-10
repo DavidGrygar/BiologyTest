@@ -4,15 +4,7 @@ import android.example.biologytest.factories.AnswerHandler
 import android.example.biologytest.model.QuestionRow
 import android.example.biologytest.factories.QuestionListItemViewHolder
 import android.example.biologytest.factories.QuestionListItemViewHolderFactory
-import android.example.biologytest.model.entities.QuestionEntity
-import android.example.biologytest.ui.hideKeyboard
-import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,7 +16,7 @@ class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val answerHandl
     ) {
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position).questionEntity.QUESTION_TYPE.ordinal
+        return getItem(position).questionEntity.QuestionType.ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListItemViewHolder {
@@ -44,7 +36,7 @@ class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val answerHandl
 
 class QuestionRowDiffCallback : DiffUtil.ItemCallback<QuestionRow>() {
     override fun areItemsTheSame(oldItem: QuestionRow, newItem: QuestionRow): Boolean {
-        return oldItem.questionEntity.ID == newItem.questionEntity.ID
+        return oldItem.questionEntity.Id == newItem.questionEntity.Id
     }
 
     override fun areContentsTheSame(oldItem: QuestionRow, newItem: QuestionRow): Boolean {

@@ -94,15 +94,15 @@ sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolde
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                radioButton.setText(it.TEXT)
-                radioButton.id = it.ID.toInt()
+                radioButton.setText(it.Text)
+                radioButton.id = it.Id.toInt()
 
                 val definedAnswerEntity = it
 
                 radioButton.setOnClickListener {
                     answerHandler.putOrEditAnswer(
                         item.questionEntity,
-                        definedAnswerEntity.TEXT
+                        definedAnswerEntity.Text
                     )
                 }
 
@@ -126,8 +126,8 @@ sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolde
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
 
-                checkBox.setText(it.TEXT)
-                checkBox.id = it.ID.toInt()
+                checkBox.setText(it.Text)
+                checkBox.id = it.Id.toInt()
 
                 val definedAnswerEntity = it
 
@@ -135,12 +135,12 @@ sealed class QuestionListItemViewHolder(itemView: View) : RecyclerView.ViewHolde
                     if (isChecked) {
                         answerHandler.putOrEditAnswer(
                             item.questionEntity,
-                            definedAnswerEntity.TEXT
+                            definedAnswerEntity.Text
                         )
                     } else {
                         answerHandler.removeAnswer(
                             item.questionEntity,
-                            definedAnswerEntity.TEXT
+                            definedAnswerEntity.Text
                         )
                     }
                 }
