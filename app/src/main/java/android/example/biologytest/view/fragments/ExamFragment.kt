@@ -6,6 +6,7 @@ import android.example.biologytest.databinding.FragmentExamBinding
 import android.example.biologytest.factories.AnswerHandler
 import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.ui.VerticalSpaceItemDecoration
+import android.example.biologytest.util.EventObserver
 import android.example.biologytest.viewmodels.ExamFragmentViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +26,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class ExamFragment
 constructor() : Fragment(R.layout.fragment_exam), AnswerHandler {
 
-    private val navController by lazy { findNavController() }
     private val viewModel: ExamFragmentViewModel by viewModels()
 
     override fun onCreateView(
@@ -69,11 +69,8 @@ constructor() : Fragment(R.layout.fragment_exam), AnswerHandler {
     }
 
     private fun subscribeObservers() {
-        viewModel.navigateToExamResultFragment.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                navController.navigate(R.id.action_examFragment_to_examResultFragment)
-                viewModel.doneNavigating()
-            }
+        viewModel.navigateToExamResultFragment.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(R.id.action_examFragment_to_examResultFragment)
         })
     }
 }

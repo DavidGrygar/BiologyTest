@@ -9,6 +9,7 @@ import android.example.biologytest.repository.AnswerRepository
 import android.example.biologytest.repository.DefinedAnswerRepository
 import android.example.biologytest.repository.ExamRepository
 import android.example.biologytest.repository.QuestionRepository
+import android.example.biologytest.util.Event
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -33,6 +34,11 @@ constructor(
     init {
         setQuetionRows()
     }
+
+    //region Navigation
+    private val _navigateToExamResultFragment = MutableLiveData<Event<Unit>>()
+    val navigateToExamResultFragment: LiveData<Event<Unit>> = _navigateToExamResultFragment
+    //endregion
 
     fun putOrEditAnswer(questionEntity: QuestionEntity, text: String) {
         when (questionEntity.QuestionType) {
@@ -110,15 +116,7 @@ constructor(
             }
 
             answerRepository.insertList(allAnswers)
-            _navigateToExamResultFragment.value = true
+            _navigateToExamResultFragment.value = Event(Unit)
         }
-    }
-
-    private val _navigateToExamResultFragment = MutableLiveData<Boolean?>()
-    val navigateToExamResultFragment: LiveData<Boolean?>
-        get() = _navigateToExamResultFragment
-
-    fun doneNavigating() {
-        _navigateToExamResultFragment.value = null
     }
 }

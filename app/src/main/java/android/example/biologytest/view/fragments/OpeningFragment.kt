@@ -2,6 +2,7 @@ package android.example.biologytest.view.fragments
 
 import android.example.biologytest.R
 import android.example.biologytest.databinding.FragmentOpeningBinding
+import android.example.biologytest.util.EventObserver
 import android.example.biologytest.viewmodels.OpeningFragmentViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +21,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class OpeningFragment
 constructor() : Fragment() {
 
-    private val navController by lazy { findNavController() }
     private val viewModel: OpeningFragmentViewModel by viewModels()
 
     override fun onCreateView(
@@ -41,11 +41,8 @@ constructor() : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.navigateToExamFragment.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                navController.navigate(R.id.action_openingFragment_to_examFragment)
-                viewModel.doneNavigating()
-            }
+        viewModel.navigateToExamFragment.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(R.id.action_openingFragment_to_examFragment)
         })
     }
 }

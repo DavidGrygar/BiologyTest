@@ -1,5 +1,6 @@
 package android.example.biologytest.viewmodels
 
+import android.example.biologytest.util.Event
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -11,15 +12,10 @@ class OpeningFragmentViewModel
 constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel(), LifecycleObserver {
-    private val _navigateToExamFragment = MutableLiveData<Boolean?>()
-    val navigateToExamFragment: LiveData<Boolean?>
-        get() = _navigateToExamFragment
+    private val _navigateToExamFragment = MutableLiveData<Event<Unit>>()
+    val navigateToExamFragment: LiveData<Event<Unit>> = _navigateToExamFragment
 
-    fun doneNavigating() {
-        _navigateToExamFragment.value = null
-    }
-
-    fun startExam(){
-        _navigateToExamFragment.value = true
+    fun startExam() {
+        _navigateToExamFragment.value = Event(Unit)
     }
 }
