@@ -5,6 +5,7 @@
     tools:context=".view.fragments.OpeningFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="android.example.biologytest.viewmodels.OpeningFragmentViewModel" />
@@ -13,8 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/button"

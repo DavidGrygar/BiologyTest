@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class VerticalSpaceItemDecoration: RecyclerView.ItemDecoration() {
+class VerticalSpaceItemDecoration : RecyclerView.ItemDecoration() {
 
     private var verticalSpaceHeight = R.dimen.vertical_list_space_height
 

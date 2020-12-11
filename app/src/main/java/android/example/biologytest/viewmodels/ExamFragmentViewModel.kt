@@ -1,10 +1,10 @@
 package android.example.biologytest.viewmodels
 
-import android.example.biologytest.model.QuestionRow
-import android.example.biologytest.model.entities.ExamEntity
-import android.example.biologytest.model.entities.AnswerEntity
-import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.enums.QuestionTypeEnum
+import android.example.biologytest.model.QuestionRow
+import android.example.biologytest.model.entities.AnswerEntity
+import android.example.biologytest.model.entities.ExamEntity
+import android.example.biologytest.model.entities.QuestionEntity
 import android.example.biologytest.repository.AnswerRepository
 import android.example.biologytest.repository.DefinedAnswerRepository
 import android.example.biologytest.repository.ExamRepository
@@ -106,11 +106,15 @@ constructor(
 
                 if (answerListForQuestion.isNullOrEmpty()) {
                     allAnswers.add(AnswerEntity(QuestionId = questionEntity.Id, ExamId = examID))
-                }
-                else
-                {
-                    answerListForQuestion.forEach{
-                        allAnswers.add(AnswerEntity(QuestionId = questionEntity.Id, Text = it, ExamId = examID))
+                } else {
+                    answerListForQuestion.forEach {
+                        allAnswers.add(
+                            AnswerEntity(
+                                QuestionId = questionEntity.Id,
+                                Text = it,
+                                ExamId = examID
+                            )
+                        )
                     }
                 }
             }

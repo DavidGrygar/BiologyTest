@@ -3,12 +3,10 @@ package android.example.biologytest.model.daos
 import android.example.biologytest.model.entities.DefinedAnswerEntity
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface DefinedAnswerDao: BaseDao<DefinedAnswerEntity> {
+interface DefinedAnswerDao : BaseDao<DefinedAnswerEntity> {
     @Query("SELECT * FROM DEFINED_ANSWER WHERE ID = :ID LIMIT 1")
     fun getSingle(ID: Long): LiveData<DefinedAnswerEntity>
 

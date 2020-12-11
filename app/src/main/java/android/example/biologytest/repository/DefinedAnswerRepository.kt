@@ -11,6 +11,6 @@ class DefinedAnswerRepository @Inject constructor(
     suspend fun insert(definedAnswerEntity: DefinedAnswerEntity) =
         definedAnswerDao.insert(definedAnswerEntity)
 
-    suspend fun getRawList(QUESTION_ID:Long) =
+    suspend fun getRawList(QUESTION_ID: Long) =
         definedAnswerDao.getRawList(QUESTION_ID)
 }

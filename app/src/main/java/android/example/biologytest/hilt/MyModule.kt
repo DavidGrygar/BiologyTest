@@ -3,28 +3,22 @@ package android.example.biologytest.hilt
 import android.content.Context
 import android.example.biologytest.MyFragmentFactory
 import android.example.biologytest.model.MyDatabase
+import android.example.biologytest.model.daos.AnswerDao
 import android.example.biologytest.model.daos.DefinedAnswerDao
 import android.example.biologytest.model.daos.ExamDao
-import android.example.biologytest.model.daos.AnswerDao
 import android.example.biologytest.model.daos.QuestionDao
-import android.example.biologytest.model.entities.DefinedAnswerEntity
-import android.example.biologytest.model.entities.QuestionEntity
-import android.example.biologytest.enums.QuestionTypeEnum
-import android.example.biologytest.model.MIGRATION_10_11
-import android.example.biologytest.model.MIGRATION_11_12
-import android.example.biologytest.repository.*
+import android.example.biologytest.repository.AnswerRepository
+import android.example.biologytest.repository.DefinedAnswerRepository
+import android.example.biologytest.repository.ExamRepository
+import android.example.biologytest.repository.QuestionRepository
 import androidx.fragment.app.FragmentFactory
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
 @ExperimentalCoroutinesApi

@@ -1,9 +1,9 @@
 package android.example.biologytest.adapters
 
 import android.example.biologytest.factories.AnswerHandler
-import android.example.biologytest.model.QuestionRow
 import android.example.biologytest.factories.QuestionListItemViewHolder
 import android.example.biologytest.factories.QuestionListItemViewHolderFactory
+import android.example.biologytest.model.QuestionRow
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter

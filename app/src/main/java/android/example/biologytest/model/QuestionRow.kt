@@ -5,5 +5,5 @@ import android.example.biologytest.model.entities.QuestionEntity
 
 data class QuestionRow(
     val questionEntity: QuestionEntity,
-    val definedAnswersList : List<DefinedAnswerEntity>
+    val definedAnswersList: List<DefinedAnswerEntity>
 )

@@ -5,6 +5,7 @@
     tools:context=".view.fragments.ExamResultFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="android.example.biologytest.viewmodels.ExamResultFragmentViewModel" />
