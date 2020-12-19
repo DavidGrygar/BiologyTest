@@ -31,6 +31,8 @@
         tools:layout="@layout/fragment_exam_result" >
         <action
             android:id="@+id/action_examResultFragment_to_openingFragment"
-            app:destination="@id/openingFragment" />
+            app:destination="@id/openingFragment"
+            app:popUpTo="@id/examResultFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
