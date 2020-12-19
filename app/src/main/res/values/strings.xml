@@ -7,4 +7,5 @@
     <string name="questions_count">Questions count</string>
     <string name="answered_correctly">Answered correctly</string>
     <string name="answered">Answered</string>
+    <string name="end">End</string>
 </resources>

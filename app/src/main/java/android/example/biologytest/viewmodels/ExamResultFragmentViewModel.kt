@@ -2,11 +2,10 @@ package android.example.biologytest.viewmodels
 
 import android.example.biologytest.repository.ExamRepository
 import android.example.biologytest.repository.QuestionRepository
+import android.example.biologytest.util.Event
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -31,4 +30,13 @@ constructor(
     val answeredCorrectly = exam.switchMap {
         questionRepository.getCountCorrect(it.Id)
     }
+
+    fun endExamResult() {
+        _navigateToOpeningFragment.value = Event(Unit)
+    }
+
+    //region Navigation
+    private val _navigateToOpeningFragment = MutableLiveData<Event<Unit>>()
+    val navigateToOpeningFragment: LiveData<Event<Unit>> = _navigateToOpeningFragment
+    //endregion
 }

@@ -28,5 +28,9 @@
         android:id="@+id/examResultFragment"
         android:name="android.example.biologytest.view.fragments.ExamResultFragment"
         android:label="fragment_exam_result"
-        tools:layout="@layout/fragment_exam_result" />
+        tools:layout="@layout/fragment_exam_result" >
+        <action
+            android:id="@+id/action_examResultFragment_to_openingFragment"
+            app:destination="@id/openingFragment" />
+    </fragment>
 </navigation>
