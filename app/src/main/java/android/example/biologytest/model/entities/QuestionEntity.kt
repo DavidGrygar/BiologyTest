@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "QUESTION")
 data class QuestionEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ID") val Id: Long,
-    @ColumnInfo(name = "QUESTION_TYPE") val QuestionType: QuestionTypeEnum,
-    @ColumnInfo(name = "TEXT") val Text: String
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ID") val id: Long,
+    @ColumnInfo(name = "QUESTION_TYPE") val questionType: QuestionTypeEnum,
+    @ColumnInfo(name = "TEXT") val text: String
 )

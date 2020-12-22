@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "EXAM")
 data class ExamEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ID") val Id: Long,
-    @ColumnInfo(name = "FINISHED") val Finished: Boolean = false,
-    @ColumnInfo(name = "TS_CREATED") val TimeStampCreated: Date
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ID") val id: Long,
+    @ColumnInfo(name = "FINISHED") val finished: Boolean = false,
+    @ColumnInfo(name = "TS_CREATED") val timeStampCreated: Date
 )

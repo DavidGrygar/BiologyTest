@@ -20,15 +20,15 @@ constructor(
     val exam = examRepository.getLatestExam()
 
     val questionsCount = exam.switchMap {
-        questionRepository.getCountQuestion(it.Id)
+        questionRepository.getCountQuestion(it.id)
     }
 
     val answered = exam.switchMap {
-        questionRepository.getCountAnsweredQuestion(it.Id)
+        questionRepository.getCountAnsweredQuestion(it.id)
     }
 
     val answeredCorrectly = exam.switchMap {
-        questionRepository.getCountCorrect(it.Id)
+        questionRepository.getCountCorrect(it.id)
     }
 
     fun endExamResult() {

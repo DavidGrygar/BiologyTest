@@ -16,7 +16,7 @@ class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val answerHandl
     ) {
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position).questionEntity.QuestionType.ordinal
+        return getItem(position).questionEntity.questionType.ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListItemViewHolder {
@@ -36,7 +36,7 @@ class QuestionListAdapter @ExperimentalCoroutinesApi constructor(val answerHandl
 
 class QuestionRowDiffCallback : DiffUtil.ItemCallback<QuestionRow>() {
     override fun areItemsTheSame(oldItem: QuestionRow, newItem: QuestionRow): Boolean {
-        return oldItem.questionEntity.Id == newItem.questionEntity.Id
+        return oldItem.questionEntity.id == newItem.questionEntity.id
     }
 
     override fun areContentsTheSame(oldItem: QuestionRow, newItem: QuestionRow): Boolean {
