@@ -3,14 +3,8 @@ package android.example.biologytest.hilt
 import android.content.Context
 import android.example.biologytest.MyFragmentFactory
 import android.example.biologytest.model.MyDatabase
-import android.example.biologytest.model.daos.AnswerDao
-import android.example.biologytest.model.daos.DefinedAnswerDao
-import android.example.biologytest.model.daos.ExamDao
-import android.example.biologytest.model.daos.QuestionDao
-import android.example.biologytest.repository.AnswerRepository
-import android.example.biologytest.repository.DefinedAnswerRepository
-import android.example.biologytest.repository.ExamRepository
-import android.example.biologytest.repository.QuestionRepository
+import android.example.biologytest.model.daos.*
+import android.example.biologytest.repository.*
 import androidx.fragment.app.FragmentFactory
 import androidx.room.Room
 import dagger.Module
@@ -69,6 +63,7 @@ object MyModule {
         return database
     }
 
+    //region DAO
     @Singleton
     @Provides
     fun provideQuestionDao(db: MyDatabase): QuestionDao = db.questionDao()
@@ -85,6 +80,12 @@ object MyModule {
     @Provides
     fun provideAnswerDao(db: MyDatabase): AnswerDao = db.answerDao()
 
+    @Singleton
+    @Provides
+    fun provideTopicGroupDao(db: MyDatabase): TopicGroupDao = db.topicGroupDao()
+    //endregion
+
+    //region Repository
     @Singleton
     @Provides
     fun provideQuestionRepository(questionDao: QuestionDao) =
@@ -104,4 +105,10 @@ object MyModule {
     @Provides
     fun provideAnswerRepository(answerDao: AnswerDao) =
         AnswerRepository(answerDao)
+
+    @Singleton
+    @Provides
+    fun provideTopicGroupRepository(topicGroupDao: TopicGroupDao) =
+        TopicGroupRepository(topicGroupDao)
+    //endregion
 }
