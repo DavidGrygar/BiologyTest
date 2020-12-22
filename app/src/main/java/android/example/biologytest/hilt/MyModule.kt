@@ -2,6 +2,9 @@ package android.example.biologytest.hilt
 
 import android.content.Context
 import android.example.biologytest.MyFragmentFactory
+import android.example.biologytest.model.MIGRATION_10_11
+import android.example.biologytest.model.MIGRATION_11_12
+import android.example.biologytest.model.MIGRATION_12_13
 import android.example.biologytest.model.MyDatabase
 import android.example.biologytest.model.daos.*
 import android.example.biologytest.repository.*
@@ -37,7 +40,7 @@ object MyModule {
                 MyDatabase::class.java,
                 MyDatabase.DATABASE_NAME
             )
-            //.addMigrations(MIGRATION_10_11, MIGRATION_11_12)
+            .addMigrations(MIGRATION_10_11, MIGRATION_11_12, MIGRATION_12_13)
             .createFromAsset("database.db")
             /*.addCallback(object : RoomDatabase.Callback(){
                 override fun onCreate(db: SupportSQLiteDatabase) {
