@@ -13,3 +13,9 @@ val MIGRATION_11_12 = object : Migration(11, 12) {
         database.execSQL("ALTER TABLE EXAM ADD COLUMN TS_CREATED INTEGER DEFAULT 1 NOT NULL")
     }
 }
+
+val MIGRATION_12_13 = object : Migration(12, 13) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE IF NOT EXISTS `TOPIC_GROUP` (`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `NAME` TEXT, `DESCRIPTION` TEXT)")
+    }
+}
