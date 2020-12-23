@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="vertical_list_space_height">4dp</dimen>
+    <dimen name="list_title_size">18sp</dimen>
+    <dimen name="list_description_size">14sp</dimen>
+    <dimen name="card_corner_radius">3dp</dimen>
 </resources>
