@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [QuestionEntity::class, DefinedAnswerEntity::class, ExamEntity::class, AnswerEntity::class, TopicGroupEntity::class],
-    version = 13
+    version = 14
 )
 @TypeConverters(MyConverters::class)
 abstract class MyDatabase : RoomDatabase() {

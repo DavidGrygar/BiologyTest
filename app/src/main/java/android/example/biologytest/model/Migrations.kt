@@ -19,3 +19,9 @@ val MIGRATION_12_13 = object : Migration(12, 13) {
         database.execSQL("CREATE TABLE IF NOT EXISTS `TOPIC_GROUP` (`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `NAME` TEXT, `DESCRIPTION` TEXT)")
     }
 }
+
+val MIGRATION_13_14 = object : Migration(13, 14) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE QUESTION ADD COLUMN TOPIC_GROUP_ID INTEGER DEFAULT 1 NOT NULL")
+    }
+}
