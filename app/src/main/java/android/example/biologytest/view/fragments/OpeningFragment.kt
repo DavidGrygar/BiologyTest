@@ -36,7 +36,7 @@ constructor() : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = TopicGroupListAdapter()
+        val adapter = TopicGroupListAdapter(viewModel)
         binding.topicGroupList.adapter = adapter
         binding.topicGroupList.layoutManager = LinearLayoutManager(context)
 
@@ -59,7 +59,8 @@ constructor() : Fragment() {
 
     private fun subscribeObservers() {
         viewModel.navigateToExamFragment.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(R.id.action_openingFragment_to_examFragment)
+            val action = OpeningFragmentDirections.actionOpeningFragmentToExamFragment(it)
+            findNavController().navigate(action)
         })
     }
 }

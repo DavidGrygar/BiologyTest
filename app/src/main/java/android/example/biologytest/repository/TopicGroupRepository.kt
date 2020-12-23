@@ -8,5 +8,8 @@ class TopicGroupRepository @Inject constructor(
     private val topicGroupDao: TopicGroupDao
 ) {
     @ExperimentalCoroutinesApi
+    fun getTopicGroup(topicGroupId: Long) = topicGroupDao.getSingle(topicGroupId)
+
+    @ExperimentalCoroutinesApi
     fun getAllTopicGroups() = topicGroupDao.getList()
 }

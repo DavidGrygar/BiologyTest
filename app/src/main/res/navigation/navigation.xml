@@ -11,7 +11,8 @@
         android:label="OpeningFragment">
         <action
             android:id="@+id/action_openingFragment_to_examFragment"
-            app:destination="@id/examFragment" />
+            app:destination="@id/examFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/examFragment"
@@ -23,6 +24,9 @@
             app:popUpTo="@id/examFragment"
             app:popUpToInclusive="true"
             />
+        <argument
+            android:name="topicGroupId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/examResultFragment"

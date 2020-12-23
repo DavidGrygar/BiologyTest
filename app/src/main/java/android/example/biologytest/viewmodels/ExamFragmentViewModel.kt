@@ -5,15 +5,15 @@ import android.example.biologytest.model.QuestionRow
 import android.example.biologytest.model.entities.AnswerEntity
 import android.example.biologytest.model.entities.ExamEntity
 import android.example.biologytest.model.entities.QuestionEntity
-import android.example.biologytest.repository.AnswerRepository
-import android.example.biologytest.repository.DefinedAnswerRepository
-import android.example.biologytest.repository.ExamRepository
-import android.example.biologytest.repository.QuestionRepository
+import android.example.biologytest.model.entities.TopicGroupEntity
+import android.example.biologytest.repository.*
 import android.example.biologytest.util.Event
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -25,14 +25,46 @@ constructor(
     private val questionRepository: QuestionRepository,
     private val answerRepository: AnswerRepository,
     private val definedAnswerRepository: DefinedAnswerRepository,
+    private val topicGroupRepository: TopicGroupRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val questionRows = MutableLiveData<List<QuestionRow>>()
+
     val answersMap = mutableMapOf<Long, MutableSet<String>>()
 
-    init {
-        setQuetionRows()
+    private val _topicGroupId = MutableLiveData<Long>()
+
+    private val _topicGroup = _topicGroupId.switchMap { id ->
+        topicGroupRepository.getTopicGroup(id).asLiveData()
+    }
+
+    val questionRows : LiveData<List<QuestionRow>> = _topicGroupId.switchMap { id ->
+        liveData {
+            questionRepository.getQuestionsForTopicGroup(id).collect {
+                it.map {
+                    when (it.questionType) {
+                        QuestionTypeEnum.SPECIFIC_NUMBER -> {
+                            QuestionRow(it, emptyList())
+                        }
+                        QuestionTypeEnum.SINGLE_CORRECT -> {
+                            QuestionRow(it,definedAnswerRepository.getRawList(it.id))
+                        }
+                        QuestionTypeEnum.MULTIPLE_CORRECT -> {
+                            QuestionRow(it,definedAnswerRepository.getRawList(it.id))
+                        }
+                    }
+                }.also { emit(it) }
+            }
+        }
+
+    }
+
+    /*init {
+        initQuetionRows()
+    }*/
+
+    fun start(topicGroupId: Long?) {
+        _topicGroupId.value = topicGroupId
     }
 
     //region Navigation
@@ -62,9 +94,13 @@ constructor(
         }
     }
 
-    fun setQuetionRows() {
+    fun initQuetionRows() {
         viewModelScope.launch {
-            val questionRowsList = mutableListOf<QuestionRow>()
+
+            questionRepository
+
+
+            /*val questionRowsList = mutableListOf<QuestionRow>()
             questionRepository.getAllQuestionsRaw().map {
                 when (it.questionType) {
                     QuestionTypeEnum.SPECIFIC_NUMBER -> {
@@ -88,7 +124,7 @@ constructor(
                     }
                 }
             }
-            questionRows.value = questionRowsList
+            questionRows.value = questionRowsList*/
         }
     }
 

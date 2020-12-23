@@ -7,12 +7,17 @@
         <variable
             name="topicGroup"
             type="android.example.biologytest.model.entities.TopicGroupEntity" />
+
+        <variable
+            name="viewModel"
+            type="android.example.biologytest.viewmodels.OpeningFragmentViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_corner_radius">
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        android:onClick="@{() -> viewModel.rowClick(topicGroup.id)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

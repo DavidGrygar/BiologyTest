@@ -2,13 +2,14 @@ package android.example.biologytest.adapters
 
 import android.example.biologytest.databinding.TopicGroupRowLayoutBinding
 import android.example.biologytest.model.entities.TopicGroupEntity
+import android.example.biologytest.viewmodels.OpeningFragmentViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class TopicGroupListAdapter() : ListAdapter<TopicGroupEntity, TopicGroupListAdapter.ViewHolder>(TopicGroupEntityDiffCallback()) {
+class TopicGroupListAdapter(private val viewModel: OpeningFragmentViewModel) : ListAdapter<TopicGroupEntity, TopicGroupListAdapter.ViewHolder>(TopicGroupEntityDiffCallback()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -18,14 +19,15 @@ class TopicGroupListAdapter() : ListAdapter<TopicGroupEntity, TopicGroupListAdap
 
     override fun onBindViewHolder(holder: TopicGroupListAdapter.ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(viewModel,item)
     }
 
     class ViewHolder private constructor(val binding: TopicGroupRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(/*clickListener: BookListener,*/ item: TopicGroupEntity) {
+        fun bind(viewModel: OpeningFragmentViewModel, item: TopicGroupEntity) {
             binding.topicGroup = item
+            binding.viewModel = viewModel
             //binding.clickListener = clickListener
             binding.executePendingBindings()
         }

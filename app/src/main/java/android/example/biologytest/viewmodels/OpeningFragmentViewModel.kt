@@ -17,11 +17,11 @@ constructor(
     private val topicGroupRepository: TopicGroupRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel(), LifecycleObserver {
-    private val _navigateToExamFragment = MutableLiveData<Event<Unit>>()
-    val navigateToExamFragment: LiveData<Event<Unit>> = _navigateToExamFragment
+    private val _navigateToExamFragment = MutableLiveData<Event<Long>>()
+    val navigateToExamFragment: LiveData<Event<Long>> = _navigateToExamFragment
 
-    fun startExam() {
-        _navigateToExamFragment.value = Event(Unit)
+    fun rowClick(topicGroupId: Long) {
+        _navigateToExamFragment.value = Event(topicGroupId)
     }
 
     val topicGroups: LiveData<List<TopicGroupEntity>> = liveData {
