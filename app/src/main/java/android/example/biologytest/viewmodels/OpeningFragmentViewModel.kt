@@ -8,6 +8,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 
 @ExperimentalCoroutinesApi
 class OpeningFragmentViewModel
@@ -25,6 +26,8 @@ constructor(
 
     val topicGroups: LiveData<List<TopicGroupEntity>> = liveData {
         // some additional work
-        topicGroupRepository.getAllTopicGroups()
+        topicGroupRepository.getAllTopicGroups().collect {
+            emit(it)
+        }
     }
 }

@@ -1,7 +1,9 @@
 package android.example.biologytest.view.fragments
 
 import android.example.biologytest.R
+import android.example.biologytest.adapters.TopicGroupListAdapter
 import android.example.biologytest.databinding.FragmentOpeningBinding
+import android.example.biologytest.ui.VerticalSpaceItemDecoration
 import android.example.biologytest.util.EventObserver
 import android.example.biologytest.viewmodels.OpeningFragmentViewModel
 import android.os.Bundle
@@ -11,7 +13,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -31,6 +35,20 @@ constructor() : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_opening, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        val adapter = TopicGroupListAdapter()
+        binding.topicGroupList.adapter = adapter
+        binding.topicGroupList.layoutManager = LinearLayoutManager(context)
+
+        val itemDecoration = VerticalSpaceItemDecoration()
+        binding.topicGroupList.addItemDecoration(itemDecoration)
+
+        this.viewModel.topicGroups.observe(viewLifecycleOwner, Observer {
+            it.let {
+                adapter.submitList(it)
+            }
+        })
+
         return binding.root
     }
 

@@ -13,11 +13,12 @@ class TopicGroupListAdapter() : ListAdapter<TopicGroupEntity, TopicGroupListAdap
         parent: ViewGroup,
         viewType: Int
     ): TopicGroupListAdapter.ViewHolder {
-        TODO("Not yet implemented")
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: TopicGroupListAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = getItem(position)
+        holder.bind(item)
     }
 
     class ViewHolder private constructor(val binding: TopicGroupRowLayoutBinding) :
