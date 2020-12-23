@@ -9,5 +9,6 @@ import androidx.room.PrimaryKey
 data class QuestionEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ID") val id: Long,
     @ColumnInfo(name = "QUESTION_TYPE") val questionType: QuestionTypeEnum,
-    @ColumnInfo(name = "TEXT") val text: String
+    @ColumnInfo(name = "TEXT") val text: String,
+    @ColumnInfo(name = "TOPIC_GROUP_ID") val topicGroupId: Long
 )
