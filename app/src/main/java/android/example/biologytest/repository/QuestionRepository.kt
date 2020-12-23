@@ -14,7 +14,10 @@ class QuestionRepository @Inject constructor(
         questionDao.getList()
 
     fun getQuestionsForExam(EXAM_ID: Long) =
-        questionDao.getList(EXAM_ID)
+        questionDao.getListByExamId(EXAM_ID)
+
+    fun getQuestionsForTopicGroup(topicGroupId: Long) =
+        questionDao.getListByTopicGroupId(topicGroupId)
 
     suspend fun getAllQuestionsRaw() =
         questionDao.getRawList()

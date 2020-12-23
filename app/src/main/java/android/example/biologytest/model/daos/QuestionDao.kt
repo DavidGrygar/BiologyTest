@@ -4,6 +4,7 @@ import android.example.biologytest.model.entities.QuestionEntity
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestionDao : BaseDao<QuestionEntity> {
@@ -14,7 +15,10 @@ interface QuestionDao : BaseDao<QuestionEntity> {
     fun getList(): LiveData<List<QuestionEntity>>
 
     @Query("SELECT DISTINCT Q.* FROM QUESTION AS Q INNER JOIN ANSWER A ON A.QUESTION_ID = Q.ID WHERE EXAM_ID = :EXAM_ID")
-    fun getList(EXAM_ID: Long): LiveData<List<QuestionEntity>>
+    fun getListByExamId(EXAM_ID: Long): LiveData<List<QuestionEntity>>
+
+    @Query("SELECT * FROM QUESTION WHERE TOPIC_GROUP_ID = :topicGroupId")
+    fun getListByTopicGroupId(topicGroupId: Long): Flow<List<QuestionEntity>>
 
     @Query("SELECT * FROM QUESTION")
     suspend fun getRawList(): List<QuestionEntity>
